@@ -1,0 +1,29 @@
+# Visual Studio / C# 用の標準的な .gitignore
+
+# ビルド成果物と中間フォルダ
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bin/
+obj/
+*.pdb
+*.ilk
+*.suo
+*.user
+
+# NuGet パッケージ関連
+packages/
+*.nupkg
+
+# テスト結果
+TestResults/
+
+# Visual Studio の設定
+.vs/
+*.opensdf
+*.database
+*.log
+*.ncb
+*.aps
+*.bak
