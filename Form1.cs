@@ -266,7 +266,6 @@ namespace HiddenValult
                 Program.hiddenForm = new HiddenLaunchForm();
 
             Program.hiddenForm.Show();
-            Program.hiddenForm.StartListening();
         }
 
         // Delete (destroy vault) — 安全モードは鍵削除（復元不能）

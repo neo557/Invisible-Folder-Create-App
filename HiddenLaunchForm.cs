@@ -24,22 +24,21 @@ namespace HiddenValult
 			this.FormBorderStyle = FormBorderStyle.None;
 			this.WindowState = FormWindowState.Maximized;
 			this.BackColor = Color.Black;
-			this.Opacity = 0.01;            // 完全に見えない
-			this.TopMost = true;
+			this.TransparencyKey = Color.Black;
+            this.TopMost = true;
 			this.ShowInTaskbar = false;
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
+			this.AllowTransparency = true;
+			this.BackColor = Color.Black;
+			this.TransparencyKey = Color.Black;
 
-			// Ctrl + Shift + L
-			RegisterHotKey(this.Handle, HOTKEY_ID, MOD_CONTROL | MOD_SHIFT, (uint)Keys.L);
+            // Ctrl + Shift + L
+            RegisterHotKey(this.Handle, HOTKEY_ID, MOD_CONTROL | MOD_SHIFT, (uint)Keys.L);
 		}
-		public void StartListening()
-		{
-			RegisterHotKey(this.Handle, HOTKEY_ID, MOD_CONTROL | MOD_SHIFT, (uint)Keys.L);
-        }
 
 		protected override void WndProc(ref Message m)
 		{
@@ -47,14 +46,14 @@ namespace HiddenValult
 
 			if (m.Msg == WM_HOTKEY && m.WParam.ToInt32() == HOTKEY_ID)
 			{
-				this.Hide();
+				this.Close();
 				using (var unlock = new UnlockForm())
 				{
 					var dr = unlock.ShowDialog();
 
 					if (dr == DialogResult.OK && unlock.SpecialKeyValidated)
 					{
-						// special key 成功（awakeme 等）
+						// special key 成功
 						// mainForm を表示させ、Form1 の ShowLoginOnly を呼ぶ
 						if (Program.mainForm != null && !Program.mainForm.IsDisposed)
 						{
@@ -85,8 +84,6 @@ namespace HiddenValult
 		{
 			// Form1 が閉じられた後などに呼ばれる
 			this.Show();
-			this.TopMost = true;
-			this.Activate();
 		}
 
 		protected override void OnFormClosing(FormClosingEventArgs e)
